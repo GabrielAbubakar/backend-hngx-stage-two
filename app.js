@@ -76,6 +76,20 @@ app.put('/api/:user_id', async (req, res) => {
     }
 })
 
+app.delete('/api/:user_id', async (req, res) => {
+    const person_id = req.params.user_id
+
+    try {
+        await Person.deleteOne({ id: person_id })
+
+
+        res.json({ success: 'That record was successfully deleted' })
+    } catch (error) {
+        console.log(error);
+        res.json({ error: 'Couldnt find any person with that ID at this database' })
+    }
+})
+
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)
