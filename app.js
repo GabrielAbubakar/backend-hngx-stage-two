@@ -58,6 +58,23 @@ app.post('/api', async (req, res) => {
     res.json({ person: person })
 })
 
+app.put('/api/:user_id', async (req, res) => {
+    const person_id = req.params.user_id
+    const new_name = req.body.new_name
+
+    try {
+        await Person.findByIdAndUpdate(person_id, {
+            name: new_name
+        })
+
+        const person = await Person.findById(person_id)
+
+        res.json({ person: person })
+    } catch (error) {
+        console.log(error);
+        res.json({ error: 'Couldnt find any person with that ID at this database' })
+    }
+})
 
 
 app.listen(process.env.PORT, () => {
