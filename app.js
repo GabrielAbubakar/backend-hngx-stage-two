@@ -3,92 +3,34 @@ if (process.env.NODE_ENV !== 'production') {
     require("dotenv").config()
 }
 const express = require('express')
+const cors = require('cors')
 const connectToDB = require('./config/connectToDB')
-const Person = require('./models/person')
+const personController = require('./controllers/personController')
 
 // Init express app
 // const mongoose = require('mongoose')
 const app = express()
 connectToDB()
 app.use(express.json())
+app.use(cors())
 
 
-// Handle a get request to / route
-app.get('/', (req, res) => {
-    res.send({ message: 'This route is not available on this api, use the /api route' })
-})
+app.get('/', personController.baseRoute)
 
-// Handle a get request to /api route
-app.get('/api', async (req, res) => {
-    // Get all people from the people collection
-    const people = await Person.find()
+// Get list of all people
+app.get('/api', personController.getPeople)
 
-    // Respond with an array of all persons
-    res.json({ people: people })
-})
+// Get a person by their id
+app.get('/api/:user_id', personController.getPersonbyId)
 
-// Handle a get request to /api/:user_id route
-app.get('/api/:user_id', async (req, res) => {
-    // Extract the request params
-    const person_id = req.params.user_id
+// Create a new person with name
+app.post('/api', personController.createPerson)
 
-    try {
-        // Get all people from the people collection
-        const person = await Person.findById(person_id)
+// Update a persons name by their id
+app.put('/api/:user_id', personController.updatePersonbyId)
 
-        // Respond with the object of the person
-        res.json({ person: person })
-    } catch (error) {
-        console.log(error);
-        res.json({ error: 'Couldnt find any person with that ID at this database' })
-    }
-})
-
-// Handle a post request ot /api route
-app.post('/api', async (req, res) => {
-    // Remove data from request body
-    const name = req.body.name
-
-    // Create a person
-    const person = await Person.create({
-        name: name
-    })
-
-    // Respond with new person
-    res.json({ person: person })
-})
-
-app.put('/api/:user_id', async (req, res) => {
-    const person_id = req.params.user_id
-    const new_name = req.body.new_name
-
-    try {
-        await Person.findByIdAndUpdate(person_id, {
-            name: new_name
-        })
-
-        const person = await Person.findById(person_id)
-
-        res.json({ person: person })
-    } catch (error) {
-        console.log(error);
-        res.json({ error: 'Couldnt find any person with that ID at this database' })
-    }
-})
-
-app.delete('/api/:user_id', async (req, res) => {
-    const person_id = req.params.user_id
-
-    try {
-        await Person.deleteOne({ id: person_id })
-
-
-        res.json({ success: 'That record was successfully deleted' })
-    } catch (error) {
-        console.log(error);
-        res.json({ error: 'Couldnt find any person with that ID at this database' })
-    }
-})
+// Delete a persons record by their id
+app.delete('/api/:user_id', personController.deletePersonbyId)
 
 
 app.listen(process.env.PORT, () => {
