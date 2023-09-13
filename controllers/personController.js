@@ -42,7 +42,7 @@ const createPerson = async (req, res) => {
     })
 
     // Respond with new person
-    res.status(201).json({ success: `A record of ${name} was successfully created` })
+    res.status(201).json({ person: person })
 }
 
 const updatePersonbyId = async (req, res) => {
@@ -55,7 +55,10 @@ const updatePersonbyId = async (req, res) => {
             name: new_name
         })
 
-        res.status(200).json({ success: `${old_name.name} has been successfully updated to ${new_name}` })
+        const person = await Person.findById(person_id)
+
+        // res.status(200).json({ success: `${old_name.name} has been successfully updated to ${new_name}` })
+        res.status(200).json({ person: person })
     } catch (error) {
         console.log(error);
         res.status(400).json({ error: 'Couldnt find any person with that ID at this database' })
