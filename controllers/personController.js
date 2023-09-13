@@ -2,7 +2,7 @@ const Person = require('../models/person')
 
 
 const baseRoute = (req, res) => {
-    res.send({ message: 'This route is not available on this api, use the /api route' })
+    res.status(200).send({ message: 'This route is not available on this api, use the /api route' })
 }
 
 const getPeople = async (req, res) => {
@@ -11,9 +11,9 @@ const getPeople = async (req, res) => {
 
     // Respond with an array of all persons
     if (people.length !== 0) {
-        res.json({ people: people })
+        res.status(200).json({ people: people })
     } else {
-        res.json({ message: 'There are no records of people in this database. Please add some.' })
+        res.status(200).json({ message: 'There are no records of people in this database. Please add some.' })
     }
 }
 
@@ -25,10 +25,10 @@ const getPersonbyId = async (req, res) => {
         const person = await Person.findById(person_id)
 
         // Respond with the object of the person
-        res.json({ person: person })
+        res.status(200).json({ person: person })
     } catch (error) {
         console.log(error);
-        res.json({ error: 'Couldnt find any person with that ID at this database' })
+        res.status(400).json({ error: 'Couldnt find any person with that ID at this database' })
     }
 }
 
@@ -42,7 +42,7 @@ const createPerson = async (req, res) => {
     })
 
     // Respond with new person
-    res.json({ success: `A record of ${name} was successfully created` })
+    res.status(201).json({ success: `A record of ${name} was successfully created` })
 }
 
 const updatePersonbyId = async (req, res) => {
@@ -55,10 +55,10 @@ const updatePersonbyId = async (req, res) => {
             name: new_name
         })
 
-        res.json({ success: `${old_name.name} has been successfully updated to ${new_name}` })
+        res.status(200).json({ success: `${old_name.name} has been successfully updated to ${new_name}` })
     } catch (error) {
         console.log(error);
-        res.json({ error: 'Couldnt find any person with that ID at this database' })
+        res.status(400).json({ error: 'Couldnt find any person with that ID at this database' })
     }
 }
 
@@ -68,10 +68,10 @@ const deletePersonbyId = async (req, res) => {
     try {
         await Person.deleteOne({ _id: person_id })
 
-        res.json({ success: 'That record was successfully deleted' })
+        res.status(200).json({ success: 'That record was successfully deleted' })
     } catch (error) {
         console.log(error);
-        res.json({ error: 'Couldnt find any person with that ID at this database' })
+        res.status(400).json({ error: 'Couldnt find any person with that ID at this database' })
     }
 }
 
