@@ -1,7 +1,7 @@
 {
   "name": "backend-hngx-stage-two",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Simple ExpressJS CRUD application",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",

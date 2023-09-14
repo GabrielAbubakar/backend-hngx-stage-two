@@ -50,7 +50,7 @@ const updatePersonbyId = async (req, res) => {
     const new_name = req.body.new_name
 
     try {
-        const old_name = await Person.findById(person_id)
+        // const old_name = await Person.findById(person_id)
         await Person.findByIdAndUpdate(person_id, {
             name: new_name
         })
