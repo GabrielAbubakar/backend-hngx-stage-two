@@ -47,7 +47,7 @@ const createPerson = async (req, res) => {
 
 const updatePersonbyId = async (req, res) => {
     const person_id = req.params.user_id
-    const new_name = req.body.new_name
+    const new_name = req.body.name
 
     try {
         // const old_name = await Person.findById(person_id)
