@@ -21,6 +21,10 @@ const getPersonbyId = async (req, res) => {
     // Extract the request params
     const person_id = req.params.user_id
 
+    if (typeof person_id !== 'string') {
+        res.status(200).json({ error: 'You are expected to use a string to make your request' })
+    }
+
     try {
         const person = await Person.findById(person_id)
 
@@ -35,6 +39,10 @@ const getPersonbyId = async (req, res) => {
 const createPerson = async (req, res) => {
     // Remove data from request body
     const name = req.body.name
+
+    if (typeof name !== 'string') {
+        res.status(200).json({ error: 'You are expected to use a string to make your request' })
+    }
 
     // Create a person
     const person = await Person.create({
