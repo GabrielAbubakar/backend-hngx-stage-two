@@ -21,10 +21,6 @@ const getPersonbyId = async (req, res) => {
     // Extract the request params
     const person_id = req.params.user_id
 
-    if (typeof person_id !== 'string') {
-        res.status(200).json({ error: 'You are expected to use a string to make your request' })
-    }
-
     try {
         const person = await Person.findById(person_id)
 
