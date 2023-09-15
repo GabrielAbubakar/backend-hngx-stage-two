@@ -8,5 +8,7 @@ The task was to create a simple REST API, CRUD application that works with a per
 
 ## Submision
 
-Here's a link to the live deployed api link(you would need to pass parameters into the slack_name and track values in order for the api to respond successfully):
-[Deploy Link](https://hngx-stage-one-znpe.onrender.com)
+Here's a link to the live deployed api link(you would need to pass parameters for some specific requests in order for the api to respond successfully):
+[Deploy Link](https://hngx-stage-two-nhwh.onrender.com/api)
+
+More information can be gotten in the DOCUMENTATION.md file.
