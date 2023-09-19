@@ -1,4 +1,4 @@
-# Zuri-HNG Backend Task Two Submission
+# Zuri-HNG Backend Task Two Submission.
 
 The repository is created in fulfilment of the Stage Two task for the Zuri-HNG Backend Internship
 
